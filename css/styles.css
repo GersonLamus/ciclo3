@@ -1,0 +1,84 @@
+body{
+    background-color: aqua;
+    font-size: 100%;
+}
+.btn-group{
+    background-color: #9ea59e;
+}
+.btn-group .button {
+    background-color: #4CAF50;
+    border: none;
+    color: rgb(255, 255, 255);
+    padding: 10px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 18px;
+    margin: 10px 5px;
+    cursor: pointer;
+    transition-duration: 0.4s;
+    width: 24%;
+  }
+  .btn-group .button:hover {
+    background-color: #075209; 
+    color: rgb(255, 255, 255);
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+  }
+  .btn-group2 .buttonText {
+    background-color: #a3cea4;
+    border: 1px 1px solid;
+    color: white;
+    padding: 3px 3px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 2px 1px;
+    cursor: pointer;
+  }
+p{
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 1em;
+}
+#idDivConsulta{
+    border: 1px outset rgb(70, 70, 70);
+    background-color: lightblue;
+    text-align: center;
+    display: block;
+    margin: 0 auto;
+}
+.grilla{
+    width:60%;
+    margin-left: auto;
+    margin-right: auto;
+}
+.grilla ,th {
+    text-align: center;
+  }
+.grilla, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    color: rgb(1, 1, 29);
+    margin:auto;
+    padding: 3px;
+ } 
+table, tr:nth-child(even) {
+    background-color: #a4cfcf;
+    padding: 5px;
+  } 
+.grilla .td1{
+    width: 10%;
+ }
+ .grilla .td2{
+    width: 30%;
+ } 
+ div{
+    text-align: center;
+ }
+ table{
+    width:100%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+ 
