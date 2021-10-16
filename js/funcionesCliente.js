@@ -2,21 +2,20 @@
 //DEBO CAMBIAR LA URL Y LA ESTRUCTURA DEL DICCIONARIO JSON
 function limpiar(){
     document.getElementById("idCodigo").value = "";
-    document.getElementById("idBrand").value = "";
-    document.getElementById("idModel").value = "";
-    document.getElementById("idCategory").value = "";
     document.getElementById("idName").value = "";
+    document.getElementById("idEmail").value = "";
+    document.getElementById("idAge").value = "";
+    
 }
 
 function insertar() {
 
     var codigo =$("#idCodigo").val();
-    var brand= $("#idBrand").val();
-    var modelo= $("#idModel").val();
-    var categoria= $("#idCategory").val();
     var nombre= $("#idName").val();
+    var correo= $("#idEmail").val();
+    var edad= $("#idAge").val();
   
-    if(codigo.length == 0 || brand.length==0 || modelo.length==0 || categoria.length==0|| nombre.length==0){
+    if(codigo.length == 0 || nombre.length==0 || correo.length==0 || edad.length==0){
         alert('Error, debe completar todos los campos');
         $("#idCodigo").focus();
         return false;
@@ -25,17 +24,17 @@ function insertar() {
     var elemento;
     elemento = { 
         id: $("#idCodigo").val(), 
-        brand:$("#idBrand").val(),
-        model: $("#idModel").val(),
-        category_id: $("#idCategory").val(),
-        name: $("#idName").val()
+        name:$("#idName").val(),
+        email: $("#idEmail").val(),
+        age: $("#idAge").val(),
+ 
     }
     var datatosend = JSON.stringify(elemento);
     $.ajax (
         {
             datatype:   'json',
             data    :   elemento,
-            url     : 'https://ge5f47e521d3134-db202110011836.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/costume/costume',
+            url     : 'https://ge5f47e521d3134-db202110011836.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/client/client' ,
             type    :   'POST',
             success      :  function(response){
                                
@@ -52,11 +51,18 @@ function insertar() {
         }
     );
     }
-
-
 }
 
 function borrar(idElemento) {
+    var codigo =$("#idCodigo").val();
+    var nombre= $("#idName").val();
+  
+    if(codigo.length == 0 && nombre.length == 0){
+        alert('Error, debe completar todos los campos');
+        $("#idCodigo").focus();
+        return false;
+    }
+    else {
     var elemento;
     elemento = { 
         id:idElemento
@@ -68,7 +74,7 @@ function borrar(idElemento) {
             datatype    : 'json',
             data        :  dataToSend,
             contentType  : 'application/json', 
-            url         :'https://ge5f47e521d3134-db202110011836.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/costume/costume',
+            url         :'https://ge5f47e521d3134-db202110011836.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/client/client',
             type        : 'DELETE',
             success      :  function(response){
                                 console.log(response);
@@ -82,13 +88,14 @@ function borrar(idElemento) {
                             }
         }
     );
+    }
 }
 
 function actualizar() {
     var codigo =$("#idCodigo").val();
   
     if(codigo.length == 0 ){
-        alert('Error, debe completar el campo Codigo');
+        alert('Error, debe completar todos los campos');
         $("#idCodigo").focus();
         return false;
     }
@@ -96,18 +103,17 @@ function actualizar() {
     var elemento;
     elemento = { 
         id: $("#idCodigo").val(), 
-        brand:$("#idBrand").val(),
-        model: $("#idModel").val(),
-        category_id: $("#idCategory").val(),
-        name: $("#idName").val()
-    };
+        name:$("#idName").val(),
+        email: $("#idEmail").val(),
+        age: $("#idAge").val(),
+     };
     var datatosend = JSON.stringify(elemento);
     $.ajax (
         {
             datatype:   'json',
             data    :   datatosend,
             contentType: 'application/json', 
-            url     : 'https://ge5f47e521d3134-db202110011836.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/costume/costume',
+            url     : 'https://ge5f47e521d3134-db202110011836.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/client/client',
             type    :   'PUT',
             success      :  function(response){
                                
@@ -126,46 +132,23 @@ function actualizar() {
 
     }
 }
-                                                 
-function consultarId() {
-    var id =$("#idCodigo").val();
-    $.ajax (
-        {
-            url          : 'https://ge5f47e521d3134-db202110011836.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/costume/costume/:id',
-            type         : 'GET',
-            dataType     : 'json',
-            success      :  function(json){
-                $("#idDivConsulta").empty();
-                for (i=0; i < json.items.length; i++){
-                    $("#idDivConsulta").append(json.items[i].id + json.items[i].brand + " " + json.items[i].model + " " + json.items[i].category_id + " " + json.items[i].name + " ");
-                }
-                console.log(json)
-            },
-            error       :   function(xhr,status){
-                console.log(xhr)
-            },
-        }
-    );
-}
-
 function obtenerItems(){
     $.ajax (
         {
             dataType     : 'json', 
-            url          : 'https://ge5f47e521d3134-db202110011836.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/costume/costume',
+            url          : 'https://ge5f47e521d3134-db202110011836.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/client/client',
             type         : 'GET',
             success      :  function(response){
                 $("#idDivConsulta").empty();
-                $("#idDivConsulta").append("<caption>Tabla Disfraz</caption>");
-                $("#idDivConsulta").append("<tr><th>Codigo</th><th>Brand</th><th>Modelo</th><th>Id Categoría</th><th>Nombre</th><th>Acción</th></tr>");
+                $("#idDivConsulta").append("<caption>Tabla Cliente</caption>");
+                $("#idDivConsulta").append("<tr><th>Codigo</th><th>Nombre</th><th>Correo</th><th>Edad</th><th>Acción</th></tr>");
                 var misItems=response.items;
                 for(i=0;i<misItems.length;i++){
                     $("#idDivConsulta").append("<tr>");
                     $("#idDivConsulta").append("<td>" + misItems[i].id + "</td>");
-                    $("#idDivConsulta").append("<td>" + misItems[i].brand + "</td>");
-                    $("#idDivConsulta").append("<td>" + misItems[i].model + "</td>");
-                    $("#idDivConsulta").append("<td>" + misItems[i].category_id + "</td>");
                     $("#idDivConsulta").append("<td>" + misItems[i].name + "</td>");
+                    $("#idDivConsulta").append("<td>" + misItems[i].email + "</td>");
+                    $("#idDivConsulta").append("<td>" + misItems[i].age + "</td>");
                     $("#idDivConsulta").append('<td><button onclick="borrar('+misItems[i].id+')">Borrar</button> </td>');
                     $("#idDivConsulta").append('<td><button onclick="obtenerItemEspecifico('+misItems[i].id+')">Cargar</button> </td>');
                     $("#idDivConsulta").append("</tr>");
@@ -183,16 +166,15 @@ function obtenerItemEspecifico(idIdItem){
     $.ajax (
         {
             dataType     : 'json', 
-            url          : 'https://ge5f47e521d3134-db202110011836.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/costume/costume/'+idIdItem,
+            url          : 'https://ge5f47e521d3134-db202110011836.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/client/client/'+idIdItem,
             type         : 'GET',
             success      :  function(response){
                 console.log(response);
                 var item=response.items[0];
                 $("#idCodigo").val(item.id);
-                $("#idBrand").val(item.brand);
-                $("#idModel").val(item.model);
-                $("#idCategory").val(item.category_id);
                 $("#idName").val(item.name);
+                $("#idEmail").val(item.email);
+                $("#idAge").val(item.age);
             },
             error       :   function(jqXHR,textStatus,errorThrown){
                 console.log( xhr);
@@ -203,47 +185,42 @@ function obtenerItemEspecifico(idIdItem){
 
 
 function obtenerItemEspecifico2(){
-
     var codigo =$("#idCodigo").val();
-  
+ 
     if(codigo.length == 0 ){
-        alert('Error, debe completar el campo ID');
+        alert('Error, debe completar todos los campos');
         $("#idCodigo").focus();
         return false;
     }
     else{
-     
     idIdItem = document.getElementById("idCodigo").value;
     $.ajax (
         {
             dataType     : 'json', 
-            url          : 'https://ge5f47e521d3134-db202110011836.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/costume/costume/'+idIdItem,
+            url          : 'https://ge5f47e521d3134-db202110011836.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/client/client/'+idIdItem,
             type         : 'GET',
             success      :  function(response){
                 console.log(response);
                 var item=response.items[0];
                 $("#idCodigo").val(item.id);
-                $("#idBrand").val(item.brand);
-                $("#idModel").val(item.model);
-                $("#idCategory").val(item.category_id);
                 $("#idName").val(item.name);
+                $("#idEmail").val(item.email);
+                $("#idAge").val(item.age);
 
                 $("#idDivConsulta").empty();
-                $("#idDivConsulta").append("<table>");
-                $("#idDivConsulta").append("<caption>Tabla Disfraz</caption>");
-                $("#idDivConsulta").append("<tr><th>Codigo</th><th>Brand</th><th>Modelo</th><th>Id Categoría</th><th>Nombre</th></tr>");
-                var misItems=response.items;                                    
-                for (i=0; i < misItems.length; i++){
+                $("#idDivConsulta").append("<caption>Tabla Cliente</caption>");
+                $("#idDivConsulta").append("<tr><th>Codigo</th><th>Nombre</th><th>Correo</th><th>Edad</th><th>Acción</th></tr>");
+                var misItems=response.items;
+                for(i=0;i<misItems.length;i++){
                     $("#idDivConsulta").append("<tr>");
                     $("#idDivConsulta").append("<td>" + misItems[i].id + "</td>");
-                    $("#idDivConsulta").append("<td>" + misItems[i].brand + "</td>");
-                    $("#idDivConsulta").append("<td>" + misItems[i].model + "</td>");
-                    $("#idDivConsulta").append("<td>" + misItems[i].category_id + "</td>");
                     $("#idDivConsulta").append("<td>" + misItems[i].name + "</td>");
+                    $("#idDivConsulta").append("<td>" + misItems[i].email + "</td>");
+                    $("#idDivConsulta").append("<td>" + misItems[i].age + "</td>");
                     $("#idDivConsulta").append('<td><button onclick="borrar('+misItems[i].id+')">Borrar</button> </td>');
-                    $("#idDivConsulta").append("</tr>");
+                    $("#idDivConsulta").append('<td><button onclick="obtenerItemEspecifico('+misItems[i].id+')">Cargar</button> </td>');
                 }
-                $("#idDivConsulta").append("</table>");
+                    $("#idDivConsulta").append("</tr>");
                 
             },
             error       :   function(jqXHR,textStatus,errorThrown){
@@ -251,5 +228,5 @@ function obtenerItemEspecifico2(){
             },
         }
     );
-}
+    }
 }

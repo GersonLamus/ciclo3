@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/funcionesMensaje.js"></script>
+    <link rel="stylesheet" href="css/Consulta.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header>
+        <img src="../img/mensaje.png" style="width: 160px;padding-left: 0px;">
+    <h1 class="titulo"><center>Consulta de la tabla Mensaje</center></h1>
+    <div class="volver">
+        <a class="botonvolver" href="../menu.html">Volver</a>
+    </div>
+    </header>
+
+    <div class="btn-group">
+        <table class="grilla">
+            <tr><td class="td1">Id</td><td class="td2"><input type="number" id="idCodigo" placeholder="Codigo" class="buttonText"> </input></td></tr>
+            <tr><td class="td1">Mensaje</td><td class="td2"><input type="text" id="idMessagetext" placeholder="Nombre" class="buttonText"> </input></td></tr>
+           
+        </table>
+        
+    </div>
+    <div  class="principal">
+       
+        <table>
+            <div class="btn-group">
+                <center>
+                    <button onclick="obtenerItems()" class="button">Listar</button>
+                    <button onclick="obtenerItemEspecifico2()" class="button">Consultar</button>
+                    <button onclick="insertar()" class="button">Insertar</button>
+                    <button onclick="actualizar()" class="button">Actualizar</button>
+                    <button onclick="limpiar()" class="button">Limpiar</button>
+                </center>
+            </div>
+           
+            <tbody  id="idDivConsulta"><center>
+
+            </tbody></center>
+           
+        </table>
+    </div>
+</body>
+</html>

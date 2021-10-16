@@ -1,42 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script src="js/funciones.js"></script>
-    <link rel="stylesheet" href="css/styles.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-</head>
-<body>
-    <h1>HOLA MUNDO</h1>
-    <div class="btn-group">
-        <center>
-            <button onclick="obtenerItemEspecifico()" class="button2">Consultar</button>
-            <button onclick="obtenerItems()" class="button2">Listar</button>
-            <button onclick="insertar()" class="button2">Insertar</button>
-            <button onclick="actualizar()" class="button2">Actualizar</button>
-            <!-- <button onclick="obtenerItemEspecifico('+misItems[i].id+')" class="button2">Cargar</button> -->
-        </center>
-    </div>
-    <div class="btn-group2">
-        <table class="grilla">
-            <tr><td class="td1">Id</td><td class="td2"><input type="number" id="idCodigo" placeholder="Codigo" class="buttonText"> </input></td></tr>
-            <tr><td class="td1">Brand</td><td class="td2"><input type="text" id="idBrand" placeholder="Brand" class="buttonText"> </input></td></tr>
-            <tr><td class="td1">Model</td><td class="td2"><input type="number" id="idModel" placeholder="Model" class="buttonText"> </input></td></tr>
-            <tr><td class="td1">Category Id</td><td class="td2"><input type="number" id="idCategory" placeholder="Caegory Id" class="buttonText"> </input></td></tr>
-            <tr><td class="td1">Name</td><td class="td2"><input type="text" id="idName" placeholder="Name" class="buttonText"> </input></td></tr>
-
-        </table>
-        
-    </div>
-    <div  class="principal">
-        <table>
-            <tbody id="idDivConsulta">
-
-            </tbody>
-        </table>
-    </div>
-</body>
+<html>
+    <link href="https://fonts.googleapis.com/css2?family=Merienda+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/portada.css">
+    <head>
+        <title>
+            Reto 2 - Desarrollo de Software
+        </title>
+    </head>
+    <body>
+        <div class="content">
+            <div id="large-header" class="large-header">
+                <div class="titulo">
+                    <h1>Reto 2 - G25</h1>
+                    <h2>Desarrollo de Software Grupo 2</h2><br>
+                    <a class="boton" href="/menu.html">Empezar</a>
+                </div>
+                <canvas id="demo-canvas"></canvas>
+            </div>
+        </div>
+    </body>
+    <script src="js/Portada.js"></script>
 </html>
