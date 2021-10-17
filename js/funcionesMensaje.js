@@ -174,8 +174,8 @@ function obtenerItemEspecifico2(){
     var codigo =$("#idCodigo").val();
     var mensaje= $("#idMessagetext").val();
 
-    if(codigo.length == 0 || mensaje.length == 0){
-        alert('Error, debe completar todos los campos');
+    if(codigo.length == 0){
+        alert('Error, debe completar el campo ID');
         $("#idCodigo").focus();
         return;
     }
