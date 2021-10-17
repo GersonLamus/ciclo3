@@ -17,7 +17,7 @@ function insertar() {
         messagetext:$("#idMessagetext").val(),
     }
 
-    if(codigo.length == 0 || messagetext.length == 0){
+    if(codigo.length == 0 || mensaje.length == 0){
         alert('Error, debe completar todos los campos');
         $("#idCodigo").focus();
         return;
@@ -86,7 +86,7 @@ function actualizar() {
     };
     var codigo =$("#idCodigo").val();
     var mensaje= $("#idMessagetext").val();
-    if(codigo.length == 0 || messagetext.length == 0){
+    if(codigo.length == 0 || mensaje.length == 0){
         alert('Error, debe completar todos los campos');
         $("#idCodigo").focus();
         return;
@@ -174,7 +174,7 @@ function obtenerItemEspecifico2(){
     var codigo =$("#idCodigo").val();
     var mensaje= $("#idMessagetext").val();
 
-    if(codigo.length == 0 || messagetext.length == 0){
+    if(codigo.length == 0 || mensaje.length == 0){
         alert('Error, debe completar todos los campos');
         $("#idCodigo").focus();
         return;
