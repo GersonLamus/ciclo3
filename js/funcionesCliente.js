@@ -1,44 +1,84 @@
 // Se envía solo un parámetro que es un diccionario, lee el servicio y carga los datos al diccionario json
 //DEBO CAMBIAR LA URL Y LA ESTRUCTURA DEL DICCIONARIO JSON
+
+
 function limpiar(){
-    document.getElementById("idCodigo").value = "";
+
     document.getElementById("idName").value = "";
     document.getElementById("idEmail").value = "";
+    document.getElementById("idPassword").value = "";
     document.getElementById("idAge").value = "";
-    
+}
+
+function pintarRespuesta(respuesta){
+
+    $("#idDivConsulta").empty();
+    $("#idDivConsulta").append("<caption>Tabla Cliente</caption>");
+    $("#idDivConsulta").append("<tr><th>Nombre</th><th>Email</th><th>Password</th><th>Edad</th></tr>");
+   
+    for(i=0;i<respuesta.length;i++){
+
+        $("#idDivConsulta").append("<tr>");
+        $("#idDivConsulta").append("<td>" + respuesta[i].name + "</td>");
+        $("#idDivConsulta").append("<td>" + respuesta[i].email + "</td>"); 
+        $("#idDivConsulta").append("<td>" + respuesta[i].password + "</td>"); 
+        $("#idDivConsulta").append("<td>" + respuesta[i].age + "</td>");        
+        $("#idDivConsulta").append('<td><button onclick="borrar('+respuesta[i].idClient+')">Borrar</button> </td>');
+        $("#idDivConsulta").append('<td><button onclick="actualizar('+respuesta[i].idClient+')">Actualizar</button> </td>');
+       
+        $("#idDivConsulta").append("</tr>");
+    }   
+    console.log(respuesta)
+
+}
+
+function obtenerItems(){
+    $.ajax({
+        url:"http://132.226.163.1:8080/api/Client/all",
+        type:"GET",
+        datatype:"JSON",
+        success:function(respuesta){
+            console.log(respuesta);
+            pintarRespuesta(respuesta);
+        }
+    });
 }
 
 function insertar() {
 
-    var codigo =$("#idCodigo").val();
-    var nombre= $("#idName").val();
-    var correo= $("#idEmail").val();
-    var edad= $("#idAge").val();
+    var name= $("#idName").val();
+    var email= $("#idEmail").val();
+    var password= $("#idPassword").val();
+    var age= $("#idAge").val();
   
-    if(codigo.length == 0 || nombre.length==0 || correo.length==0 || edad.length==0){
+    if(name.length==0 || email.length==0 || password.length==0 ||age.length==0){
         alert('Error, debe completar todos los campos');
-        $("#idCodigo").focus();
+        $("#idName").focus();
         return false;
     }
     else{
-    var elemento;
+    let elemento;
     elemento = { 
-        id: $("#idCodigo").val(), 
+       
         name:$("#idName").val(),
         email: $("#idEmail").val(),
-        age: $("#idAge").val(),
- 
+        password:$("#idPassword").val(),
+        age: $("#idAge").val()
     }
     var datatosend = JSON.stringify(elemento);
     $.ajax (
         {
-            datatype:   'json',
-            data    :   elemento,
-            url     : 'https://ge5f47e521d3134-db202110011836.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/client/client' ,
-            type    :   'POST',
+
+            type:'POST',
+            contentType: "application/json; charset=utf-8",
+            dataType: 'JSON',
+            data: JSON.stringify(elemento),
+            url:"http://132.226.163.1:8080/api/Client/save",
+
             success      :  function(response){
                                
                                console.log(response);
+                               alert("Se guardo correctamente");
                                obtenerItems();
                                limpiar();
                             },
@@ -51,33 +91,27 @@ function insertar() {
         }
     );
     }
+
+
 }
 
 function borrar(idElemento) {
-    var codigo =$("#idCodigo").val();
-    var nombre= $("#idName").val();
-  
-    if(codigo.length == 0 && nombre.length == 0){
-        alert('Error, debe completar todos los campos');
-        $("#idCodigo").focus();
-        return false;
-    }
-    else {
-    var elemento;
+    let elemento;
     elemento = { 
         id:idElemento
     };
-    var dataToSend   = JSON.stringify(elemento);
-
+    let dataToSend   = JSON.stringify(elemento);
+    console.log(dataToSend);
     $.ajax (
         {
-            datatype    : 'json',
-            data        :  dataToSend,
-            contentType  : 'application/json', 
-            url         :'https://ge5f47e521d3134-db202110011836.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/client/client',
-            type        : 'DELETE',
+            url:"http://132.226.163.1:8080/api/Client/"+idElemento,
+            type:"DELETE",
+            data:dataToSend,
+            contentType:"application/JSON",
+            datatype:"JSON",
             success      :  function(response){
                                 console.log(response);
+                                alert("Se ha borrado el  Correctamente!")
                                 obtenerItems();
                                 limpiar();
 
@@ -88,145 +122,54 @@ function borrar(idElemento) {
                             }
         }
     );
-    }
 }
 
-function actualizar() {
-    var codigo =$("#idCodigo").val();
+function actualizar(idElemento) {
   
-    if(codigo.length == 0 ){
+    var name= $("#idName").val();
+    var email= $("#idEmail").val();
+    var password= $("#idPassword").val();
+    var age= $("#idAge").val();
+  
+    if(name.length==0 || email.length==0 || password.length==0 ||age.length==0){
         alert('Error, debe completar todos los campos');
-        $("#idCodigo").focus();
-        return false;
+        $("#idName").focus();
+        return;
     }
     else{
-    var elemento;
-    elemento = { 
-        id: $("#idCodigo").val(), 
-        name:$("#idName").val(),
-        email: $("#idEmail").val(),
-        age: $("#idAge").val(),
-     };
-    var datatosend = JSON.stringify(elemento);
-    $.ajax (
-        {
-            datatype:   'json',
-            data    :   datatosend,
-            contentType: 'application/json', 
-            url     : 'https://ge5f47e521d3134-db202110011836.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/client/client',
-            type    :   'PUT',
-            success      :  function(response){
-                               
-                               console.log(response);
-                               obtenerItems();
-                               limpiar();
-                            },
-            error       :   function(jqXHR,textStatus,errorThrown){
-                            console.log( xhr);
+        let elemento;
+        elemento = { 
+            idClient: idElemento,
+            name:$("#idName").val(),
+            email: $("#idEmail").val(),
+            password:$("#idPassword").val(),
+            age: $("#idAge").val()
+        };
+        console.log(elemento);
+         
+        $.ajax (
+            {
+                url:"http://132.226.163.1:8080/api/Client/update",
+                type:"PUT",
+                data:JSON.stringify(elemento),
+                contentType:"application/JSON",
+                datatype:"JSON",
+                success      :  function(response){
+                                
+                                console.log(response);
+                                alert("El registro de Cliente fue modificado satisfactoriamente");
+                                obtenerItems();
+                                limpiar();
+                                },
+                error       :   function(jqXHR,textStatus,errorThrown){
+                                console.log( xhr);
 
-                            }
+                                }
 
 
-        }
-    );
+            }
+        );
 
     }
 }
-function obtenerItems(){
-    $.ajax (
-        {
-            dataType     : 'json', 
-            url          : 'https://ge5f47e521d3134-db202110011836.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/client/client',
-            type         : 'GET',
-            success      :  function(response){
-                $("#idDivConsulta").empty();
-                $("#idDivConsulta").append("<caption>Tabla Cliente</caption>");
-                $("#idDivConsulta").append("<tr><th>Codigo</th><th>Nombre</th><th>Correo</th><th>Edad</th><th>Acción</th></tr>");
-                var misItems=response.items;
-                for(i=0;i<misItems.length;i++){
-                    $("#idDivConsulta").append("<tr>");
-                    $("#idDivConsulta").append("<td>" + misItems[i].id + "</td>");
-                    $("#idDivConsulta").append("<td>" + misItems[i].name + "</td>");
-                    $("#idDivConsulta").append("<td>" + misItems[i].email + "</td>");
-                    $("#idDivConsulta").append("<td>" + misItems[i].age + "</td>");
-                    $("#idDivConsulta").append('<td><button onclick="borrar('+misItems[i].id+')">Borrar</button> </td>');
-                    $("#idDivConsulta").append('<td><button onclick="obtenerItemEspecifico('+misItems[i].id+')">Cargar</button> </td>');
-                    $("#idDivConsulta").append("</tr>");
-                }    
-                console.log(response)
-            },
-            error       :   function(jqXHR,textStatus,errorThrown){
-                
-            },
-        }
-    );
-}
-
-function obtenerItemEspecifico(idIdItem){
-    $.ajax (
-        {
-            dataType     : 'json', 
-            url          : 'https://ge5f47e521d3134-db202110011836.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/client/client/'+idIdItem,
-            type         : 'GET',
-            success      :  function(response){
-                console.log(response);
-                var item=response.items[0];
-                $("#idCodigo").val(item.id);
-                $("#idName").val(item.name);
-                $("#idEmail").val(item.email);
-                $("#idAge").val(item.age);
-            },
-            error       :   function(jqXHR,textStatus,errorThrown){
-                console.log( xhr);
-            },
-        }
-    );
-}
-
-
-function obtenerItemEspecifico2(){
-    var codigo =$("#idCodigo").val();
- 
-    if(codigo.length == 0 ){
-        alert('Error, debe completar todos los campos');
-        $("#idCodigo").focus();
-        return false;
-    }
-    else{
-    idIdItem = document.getElementById("idCodigo").value;
-    $.ajax (
-        {
-            dataType     : 'json', 
-            url          : 'https://ge5f47e521d3134-db202110011836.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/client/client/'+idIdItem,
-            type         : 'GET',
-            success      :  function(response){
-                console.log(response);
-                var item=response.items[0];
-                $("#idCodigo").val(item.id);
-                $("#idName").val(item.name);
-                $("#idEmail").val(item.email);
-                $("#idAge").val(item.age);
-
-                $("#idDivConsulta").empty();
-                $("#idDivConsulta").append("<caption>Tabla Cliente</caption>");
-                $("#idDivConsulta").append("<tr><th>Codigo</th><th>Nombre</th><th>Correo</th><th>Edad</th><th>Acción</th></tr>");
-                var misItems=response.items;
-                for(i=0;i<misItems.length;i++){
-                    $("#idDivConsulta").append("<tr>");
-                    $("#idDivConsulta").append("<td>" + misItems[i].id + "</td>");
-                    $("#idDivConsulta").append("<td>" + misItems[i].name + "</td>");
-                    $("#idDivConsulta").append("<td>" + misItems[i].email + "</td>");
-                    $("#idDivConsulta").append("<td>" + misItems[i].age + "</td>");
-                    $("#idDivConsulta").append('<td><button onclick="borrar('+misItems[i].id+')">Borrar</button> </td>');
-                    $("#idDivConsulta").append('<td><button onclick="obtenerItemEspecifico('+misItems[i].id+')">Cargar</button> </td>');
-                }
-                    $("#idDivConsulta").append("</tr>");
-                
-            },
-            error       :   function(jqXHR,textStatus,errorThrown){
-                console.log( xhr);
-            },
-        }
-    );
-    }
-}
+                                                 

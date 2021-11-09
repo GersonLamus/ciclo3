@@ -5,14 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="js/funcionesMensaje.js"></script>
+    <script src="js/funcionesReservation.js"></script>
     <link rel="stylesheet" href="css/Consulta.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 </head>
 <body>
     <header>
-        <img src="img/mensaje.png" style="width: 160px;padding-left: 0px;">
-    <h1 class="titulo"><center>Consulta de la tabla Mensaje</center></h1>
+        <img src="img/reserva.png" style="width: 160px;padding-left: 0px;">
+    <h1 class="titulo"><center>Consulta de la tabla Reservas</center></h1>
     <div class="volver">
         <a class="botonvolver" href="menu.html">Volver</a>
     </div>
@@ -20,7 +20,8 @@
 
     <div class="btn-group">
         <table class="grilla">
-            <tr><td class="td1">Mensaje</td><td class="td2"><input type="text" id="idMessageText" placeholder="Mensaje" class="buttonText"> </input></td></tr>
+            <tr><td class="td1">Fecha de Incio</td><td class="td2"><input type="date" id="idFechaInicio" placeholder="Fecha Inicio Reservación" class="buttonText"> </input></td></tr>
+            <tr><td class="td1">Fecha devolución</td><td class="td2"><input type="date" id="idFechaFin" placeholder="Fecha Entrega" class="buttonText"> </input></td></tr>
             <tr><td class="td1">Cliente</td><td class="td2">
             <select id="select-client" class="lis"></select>
             <script type="text/javascript">
@@ -33,6 +34,8 @@
                     window.onload = autoInicioCostume();
                 </script>
             </td></tr>
+            <tr><td class="td1">Estado</td><td class="td2"><input type="text" id="idStatus" placeholder="Estado de la Reserva" class="buttonText"> </input></td></tr>
+            
         </table>
         
     </div>
@@ -45,10 +48,8 @@
                     <button onclick="insertar()" class="button">Insertar</button>
                     <button onclick="limpiar()" class="button">Limpiar</button>
                 </center>
-            </div>
-          
+            </div>          
         </table>
-
         <a class="navbar-brand" ><table align="center" id="idDivConsulta" ></table></a>
     </div>
 </body>

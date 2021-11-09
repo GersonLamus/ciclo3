@@ -20,32 +20,25 @@
 
     <div class="btn-group">
         <table class="grilla">
-            <tr><td class="td1">Id</td><td class="td2"><input type="number" id="idCodigo" placeholder="Codigo" class="buttonText"> </input></td></tr>
-            <tr><td class="td1">Name</td><td class="td2"><input type="text" id="idName" placeholder="Nombre" class="buttonText"> </input></td></tr>
+            <tr><td class="td1">Nombre</td><td class="td2"><input type="text" id="idName" placeholder="Nombre" class="buttonText"> </input></td></tr>
             <tr><td class="td1">Email</td><td class="td2"><input type="text" id="idEmail" placeholder="Email" class="buttonText"> </input></td></tr>
-            <tr><td class="td1">Age</td><td class="td2"><input type="number" id="idAge" placeholder="Edad" class="buttonText"> </input></td></tr>
+            <tr><td class="td1">Password</td><td class="td2"><input type="text" id="idPassword" placeholder="Password" class="buttonText"> </input></td></tr>
+            <tr><td class="td1">Edad</td><td class="td2"><input type="number" id="idAge" placeholder="Edad" class="buttonText"> </input></td></tr>
             
         </table>
         
     </div>
     <div  class="principal">
-       
         <table>
             <div class="btn-group">
                 <center>
                     <button onclick="obtenerItems()" class="button">Listar</button>
-                    <button onclick="obtenerItemEspecifico2()" class="button">Consultar</button>
                     <button onclick="insertar()" class="button">Insertar</button>
-                    <button onclick="actualizar()" class="button">Actualizar</button>
                     <button onclick="limpiar()" class="button">Limpiar</button>
                 </center>
             </div>
-           
-            <tbody  id="idDivConsulta"><center>
-
-            </tbody></center>
-           
         </table>
+        <a class="navbar-brand" ><table id="idDivConsulta" ></table></a>
     </div>
 </body>
 </html>
